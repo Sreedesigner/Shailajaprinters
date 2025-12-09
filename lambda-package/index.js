@@ -9,8 +9,8 @@ exports.handler = async (event) => {
         'Access-Control-Allow-Methods': 'POST, OPTIONS'
     };
 
-    // Handle OPTIONS request for CORS preflight
-    if (event.httpMethod === 'OPTIONS') {
+    // Handle OPTIONS request for CORS preflight (HTTP API v2 format)
+    if (event.requestContext.http.method === 'OPTIONS') {
         return {
             statusCode: 200,
             headers,
@@ -19,7 +19,8 @@ exports.handler = async (event) => {
     }
 
     try {
-        const body = JSON.parse(event.body);
+        // Parse body - handle both string and object formats
+        const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
         
         // Validate required fields
         if (!body.name || !body.email || !body.message) {
@@ -53,7 +54,7 @@ exports.handler = async (event) => {
             },
             Message: {
                 Subject: {
-                    Data: `New Contact Form: ${body.subject || 'General Enquiry'} - ${body.name}`,
+                    Data: `🖨️ ShailajaPrinters - ${body.subject || 'General Enquiry'} from ${body.name}`,
                     Charset: 'UTF-8'
                 },
                 Body: {

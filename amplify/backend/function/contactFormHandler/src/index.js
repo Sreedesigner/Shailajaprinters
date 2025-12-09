@@ -54,7 +54,7 @@ exports.handler = async (event) => {
             },
             Message: {
                 Subject: {
-                    Data: `New Contact Form: ${body.subject || 'General Enquiry'} - ${body.name}`,
+                    Data: `🖨️ ShailajaPrinters - ${body.subject || 'General Enquiry'} from ${body.name}`,
                     Charset: 'UTF-8'
                 },
                 Body: {
