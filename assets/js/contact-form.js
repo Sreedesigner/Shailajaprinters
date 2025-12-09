@@ -1,5 +1,5 @@
 ﻿// Contact Form Handler with AWS API Gateway - Vanilla JavaScript
-const API_ENDPOINT = 'https://7irxhtntx0.execute-api.eu-west-1.amazonaws.com/prod/contact';
+const API_ENDPOINT = 'https://z2ytaxvtv6.execute-api.ap-south-1.amazonaws.com/prod/contact';
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('contactForm');
