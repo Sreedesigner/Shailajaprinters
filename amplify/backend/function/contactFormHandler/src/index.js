@@ -48,9 +48,9 @@ exports.handler = async (event) => {
 
         // Email parameters
         const params = {
-            Source: 'shailajaprinters@gmail.com', // Must be verified in SES
+            Source: 'ShailajaPrinters <shailajaprinters@gmail.com>', // Must be verified in SES
             Destination: {
-                ToAddresses: ['shailajaprinters@gmail.com'] // Your Outlook email
+                ToAddresses: ['shailajaprinters@gmail.com']
             },
             Message: {
                 Subject: {
@@ -63,43 +63,52 @@ exports.handler = async (event) => {
                             <!DOCTYPE html>
                             <html>
                             <head>
+                                <meta charset="UTF-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
                                 <style>
                                     body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-                                    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-                                    .header { background: #0d6efd; color: white; padding: 20px; text-align: center; }
-                                    .content { background: #f8f9fa; padding: 20px; margin: 20px 0; }
+                                    .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; }
+                                    .header { background: #0d6efd; color: white; padding: 20px; text-align: center; border-radius: 5px 5px 0 0; }
+                                    .content { background: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 5px; }
                                     .field { margin-bottom: 15px; }
-                                    .label { font-weight: bold; color: #0d6efd; }
-                                    .footer { text-align: center; color: #6c757d; font-size: 12px; margin-top: 20px; }
+                                    .label { font-weight: bold; color: #0d6efd; display: block; margin-bottom: 5px; }
+                                    .value { color: #333; }
+                                    .footer { text-align: center; color: #6c757d; font-size: 12px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #dee2e6; }
+                                    .message-box { background: white; padding: 15px; border-left: 4px solid #0d6efd; margin: 10px 0; border-radius: 3px; }
                                 </style>
                             </head>
                             <body>
                                 <div class="container">
                                     <div class="header">
-                                        <h2>New Contact Form Submission</h2>
-                                        <p>ShailajaPrinters Website</p>
+                                        <h2 style="margin: 0;">New Contact Form Submission</h2>
+                                        <p style="margin: 5px 0 0 0;">shailajaprinters.com</p>
                                     </div>
                                     <div class="content">
                                         <div class="field">
-                                            <span class="label">Name:</span> ${body.name}
+                                            <span class="label">Customer Name:</span>
+                                            <span class="value">${body.name}</span>
                                         </div>
                                         <div class="field">
-                                            <span class="label">Email:</span> <a href="mailto:${body.email}">${body.email}</a>
+                                            <span class="label">Email Address:</span>
+                                            <span class="value"><a href="mailto:${body.email}" style="color: #0d6efd; text-decoration: none;">${body.email}</a></span>
                                         </div>
-                                        ${body.phone ? `<div class="field"><span class="label">Phone:</span> ${body.phone}</div>` : ''}
-                                        ${body.company ? `<div class="field"><span class="label">Company:</span> ${body.company}</div>` : ''}
+                                        ${body.phone ? `<div class="field"><span class="label">Phone Number:</span><span class="value"><a href="tel:${body.phone}" style="color: #0d6efd; text-decoration: none;">${body.phone}</a></span></div>` : ''}
+                                        ${body.company ? `<div class="field"><span class="label">Company:</span><span class="value">${body.company}</span></div>` : ''}
                                         <div class="field">
-                                            <span class="label">Subject:</span> ${body.subject || 'Not specified'}
+                                            <span class="label">Enquiry Type:</span>
+                                            <span class="value">${body.subject || 'General Enquiry'}</span>
                                         </div>
                                         <div class="field">
                                             <span class="label">Message:</span>
-                                            <p style="background: white; padding: 15px; border-left: 3px solid #0d6efd; margin: 10px 0;">
+                                            <div class="message-box">
                                                 ${body.message.replace(/\n/g, '<br>')}
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="footer">
-                                        <p>This message was sent from the ShailajaPrinters contact form at ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</p>
+                                        <p style="margin: 5px 0;">📅 Received: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'short' })}</p>
+                                        <p style="margin: 5px 0;">🌐 Source: ShailajaPrinters Contact Form</p>
+                                        <p style="margin: 5px 0; font-size: 11px;">This is an automated message from your website contact form.</p>
                                     </div>
                                 </div>
                             </body>
@@ -109,26 +118,30 @@ exports.handler = async (event) => {
                     },
                     Text: {
                         Data: `
-New Contact Form Submission - ShailajaPrinters
+NEW ENQUIRY - ShailajaPrinters.com
+${'='.repeat(50)}
 
+CUSTOMER DETAILS:
 Name: ${body.name}
 Email: ${body.email}
 ${body.phone ? `Phone: ${body.phone}` : ''}
 ${body.company ? `Company: ${body.company}` : ''}
-Subject: ${body.subject || 'Not specified'}
 
-Message:
+ENQUIRY TYPE:
+${body.subject || 'General Enquiry'}
+
+MESSAGE:
 ${body.message}
 
----
-Sent from ShailajaPrinters website contact form
-${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
+${'='.repeat(50)}
+Received: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'short' })}
+Source: ShailajaPrinters Contact Form (shailajaprinters.com)
                         `,
                         Charset: 'UTF-8'
                     }
                 }
             },
-            ReplyToAddresses: [body.email] // Allows you to reply directly from Outlook
+            ReplyToAddresses: [`${body.name} <${body.email}>`] // Allows you to reply directly from Outlook
         };
 
         // Send email via SES
