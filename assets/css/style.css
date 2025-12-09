@@ -1,0 +1,127 @@
+﻿/* Custom styles for ShailajaPrinters site */
+:root{
+  --brand: #0d6efd; /* Bootstrap primary */
+  --brand-dark: #0b5ed7;
+  --text: #222222;
+  --muted: #6c757d;
+  --surface: #ffffff;
+}
+
+/* Typography & base */
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Match ShailajaPrinters site background color (applied site-wide) */
+body{
+  background-color: #F0ECE3;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
+h1 { font-size: clamp(1.875rem, 2vw + 1.25rem, 2.1rem); }
+h2 { font-size: clamp(1.5rem, 1.5vw + 1rem, 2rem); }
+h3 { font-size: clamp(1.25rem, 1vw + .9rem, 1.5rem); }
+p.lead { color: #333; }
+
+/* Links */
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Prevent underline on hover specifically for navbar links */
+.navbar .nav-link:hover { text-decoration: none; }
+
+/* Navbar and dropdown z-index fix */
+.navbar { z-index: 1030; }
+.dropdown-menu { z-index: 1031; }
+
+header img{
+  max-width: 320px;
+}
+
+footer small{opacity:0.85}
+
+/* Slight card hover */
+.card{ border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+.card:hover{transform:translateY(-4px);transition:transform .2s ease; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+
+/* Top header: logo left, contact links right */
+/* Match page background (#F0ECE3) for seamless look */
+.top-header{ background-color:#F0ECE3; color:var(--text); border-bottom:1px solid rgba(0,0,0,0.06); }
+.top-header a{ color:var(--brand); text-decoration:none; }
+.top-header a:hover{ color:var(--brand-dark); text-decoration:underline; }
+.top-header .site-logo{ max-height:82px; width:auto; display:block; }
+.top-header .contact-links a{ margin-left:1rem; }
+@media (max-width:576px){
+  .top-header .contact-links a{ margin-left:0.75rem; font-size:0.95rem; }
+}
+
+/* Book publishing page styles */
+main .book-pub-image {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Navbar polish */
+.navbar { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.navbar .nav-link { font-weight: 500; padding: .5rem .85rem; }
+.navbar-dark .navbar-nav .nav-link { color: rgba(255,255,255,0.9); }
+.navbar-dark .navbar-nav .nav-link:hover { color: #fff; }
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #fff;
+  background: rgba(255,255,255,0.25);
+  border-radius: .5rem;
+}
+/* Suppress legacy active underline pseudo-element (but not dropdown arrows) */
+.navbar .nav-link.active:not(.dropdown-toggle):after { display: none; }
+
+/* Buttons */
+.btn { border-radius: .5rem; font-weight: 600; }
+.btn-primary { background-color: var(--brand); border-color: var(--brand); }
+.btn-primary:hover { background-color: var(--brand-dark); border-color: var(--brand-dark); }
+.btn-outline-primary { color: var(--brand); border-color: var(--brand); }
+.btn-outline-primary:hover { background-color: var(--brand); color: #fff; }
+
+/* Carousel images: consistent aspect */
+.carousel .carousel-item img{
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+/* Book publishing image sizing */
+.book-pub-image {
+  object-fit: cover;
+  width: 100%;
+  height: 420px;
+}
+
+/* Forms */
+.form-control{ border-radius: .5rem; border-color: rgba(0,0,0,0.15); }
+.form-control:focus { box-shadow: 0 0 0 .2rem rgba(13,110,253,.15); border-color: var(--brand); }
+
+/* Sections spacing helpers if needed */
+section { scroll-margin-top: 80px; }
+
+/* Footer */
+footer { box-shadow: 0 -2px 8px rgba(0,0,0,0.04); }
+footer a:hover { text-decoration: underline; }
+
+/* Portrait video helpers for Corporate Diaries */
+.video-portrait { position: relative; width: 100%; aspect-ratio: 3 / 4; background: #000; border-radius: .5rem; box-shadow: 0 6px 18px rgba(0,0,0,0.12); overflow: hidden; }
+.video-portrait video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; -webkit-transform: translateZ(0); }
+.video-portrait.large { max-height: 64vh; max-width: calc(64vh * 3 / 4); margin: 0 auto; } /* 80% of 80vh */
+.video-portrait.thumb { max-width: 160px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; opacity: 0.7; } /* 80% of 200px */
+.video-portrait.thumb:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(0,0,0,0.18); opacity: 1; }
+.video-portrait.thumb.active { opacity: 1; box-shadow: 0 0 0 3px var(--brand); }
+@media (max-width: 768px){
+  .video-portrait.large { max-height: 48vh; max-width: calc(48vh * 3 / 4); } /* 80% of 60vh */
+  .video-portrait.thumb { max-width: 36%; } /* 80% of 45% */
+}
